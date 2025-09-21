@@ -15,7 +15,7 @@ use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptchaV
 /**
  * Kernel test class asserting that the bundle can start with valid configuration
  */
-class ValidKernelIntegrationTest extends KernelTestCase
+class KernelIntegrationTest extends KernelTestCase
 {
     private ContainerInterface $backwardCompatibleContainer;
 

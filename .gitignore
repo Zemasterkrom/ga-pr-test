@@ -3,7 +3,8 @@
 composer.lock
 
 # VSCode
-/.vscode/
+.vscode/*
+!.vscode/settings.json
 
 # Symfony
 /var/
@@ -12,3 +13,6 @@ composer.lock
 .phpunit.result.cache
 /coverage*/
 /drivers/
+
+# GitHub
+.github/**.md

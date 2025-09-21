@@ -1,0 +1,3 @@
+{
+    "php.workspace.includePath": "vendor/bin/.phpunit/phpunit/src",
+}
