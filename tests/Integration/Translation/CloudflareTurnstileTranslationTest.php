@@ -26,7 +26,7 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
         if (!isset(self::$translationFileContents)) {
             self::$translationFileContents = [];
         }
-    
+
         if (!isset(self::$errorMessageTranslations)) {
             self::$errorMessageTranslations = [];
         }
@@ -49,19 +49,23 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
     /**
      * @dataProvider yieldIetfBcp47SymfonyLocaleAssociations
      */
-    public function testEverySupportedTranslations($ietfBcp47SymfonyLocale): void {
+    public function testEverySupportedTranslations($ietfBcp47SymfonyLocale): void
+    {
         $cloudflareTurnstileCaptchaConstraint = new CloudflareTurnstileCaptcha();
         $filesystem = new Filesystem();
 
 
         $translationFilePath = "";
         $completePath = sprintf("%s/../../../src/Resources/translations/validators.%s.php", __DIR__, $ietfBcp47SymfonyLocale);
-        $partialPath = sprintf( "%s/../../../src/Resources/translations/validators.%s.php", __DIR__, substr($ietfBcp47SymfonyLocale, 0, 2));
+        $partialPath = sprintf("%s/../../../src/Resources/translations/validators.%s.php", __DIR__, substr($ietfBcp47SymfonyLocale, 0, 2));
 
-        if (glob($completePath)) {
-            $translationFilePath = glob($completePath)[0];
-        } else if (glob($partialPath)) {
-            $translationFilePath = glob($partialPath)[0];
+        $completePathGlob = glob($completePath);
+        $partialPathGlob = glob($partialPath);
+
+        if ($completePathGlob) {
+            $translationFilePath = $completePathGlob[0];
+        } else if ($partialPathGlob) {
+            $translationFilePath = $partialPathGlob[0];
         }
 
         $this->assertNotEmpty($translationFilePath);
@@ -69,7 +73,7 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
 
         $translationFileContent = file_get_contents($translationFilePath);
         $errorMessageTranslation = $this->translator->trans($cloudflareTurnstileCaptchaConstraint->message, [], 'validators', $ietfBcp47SymfonyLocale);
-        
+
         $this->assertNotEquals($cloudflareTurnstileCaptchaConstraint->message, $errorMessageTranslation);
         $this->assertNotContains($translationFileContent, self::$translationFileContents);
         $this->assertNotContains($errorMessageTranslation, self::$errorMessageTranslations);
@@ -78,12 +82,13 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
         self::$errorMessageTranslations[] = $errorMessageTranslation;
     }
 
-    public function yieldIetfBcp47SymfonyLocaleAssociations(): iterable {
-        $ietfBcp47SymfonyLocaleAssociations = array_map(function(string $ietfBcp47locale) {
-            return preg_replace_callback("/-(.*)/", function(array $matches) {
+    public function yieldIetfBcp47SymfonyLocaleAssociations(): iterable
+    {
+        $ietfBcp47SymfonyLocaleAssociations = array_map(function (string $ietfBcp47locale) {
+            return preg_replace_callback("/-(.*)/", function (array $matches) {
                 return sprintf("_%s", strtoupper($matches[1]));
             }, $ietfBcp47locale);
-        },  array_filter(array_keys(CloudflareTurnstileType::SUPPORTED_LANGUAGES_LOCALES), function(string $locale) {
+        }, array_filter(array_keys(CloudflareTurnstileType::SUPPORTED_LANGUAGES_LOCALES), function (string $locale) {
             return strlen($locale) === 5;
         }));
 

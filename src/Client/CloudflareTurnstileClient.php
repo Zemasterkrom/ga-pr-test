@@ -16,7 +16,7 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
     private string $secretKey;
 
     /** @var array<string, mixed> */
-    private array $options;
+    private array $options = [];
 
     /**
      * Constructor for CloudflareTurnstileClient
@@ -34,7 +34,7 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
 
     public function handleOptions(array ...$options): array
     {
-        $mergedOptions = array_merge(isset($this->options) ? $this->options : [], ...$options);
+        $mergedOptions = array_merge($this->options, ...$options);
 
         foreach (array_keys($mergedOptions) as $option) {
             if ($option !== 'body' && $option !== 'timeout' && $option !== 'max_duration') {

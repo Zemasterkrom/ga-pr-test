@@ -43,7 +43,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: none, curl, mbstring, xml, simplexml, xmlwriter, dom, tokenizer, json, zip, sockets
+          extensions: none, curl, mbstring, xml, simplexml, xmlwriter, dom, tokenizer, json, zip, sockets, iconv
           coverage: xdebug
 
       - name: Check Composer package description
@@ -97,7 +97,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
-          extensions: none, curl, mbstring, xml, simplexml, xmlwriter, dom, tokenizer, json, zip, sockets
+          extensions: none, curl, mbstring, xml, simplexml, xmlwriter, dom, tokenizer, json, zip, sockets, iconv
           coverage: xdebug
 
       - name: Generate Composer dependencies lock file

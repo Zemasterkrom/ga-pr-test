@@ -6,11 +6,11 @@ parameters:
         - src
         - tests
     reportUnmatchedIgnoredErrors: false
-    checkGenericClassInNonGenericObjectType: true # The issue is that template annotations are not present in the utility test classes of earlier versions
     ignoreErrors:
         - "#Test.* has parameter .* with no value type specified in iterable type#"
         - "#Test.* has parameter .* with no type specified#"
         - "#Test.* type has no value type specified in iterable type#"
         - "#Test extends generic class .* but does not specify its types#"
         - "#Method .* invoked with .* parameters#"
-
+        - '#Class .* extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types#'
+        - '#Method .* has parameter .* with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types#'
