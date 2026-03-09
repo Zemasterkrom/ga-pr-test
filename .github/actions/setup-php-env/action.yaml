@@ -1,0 +1,40 @@
+name: "Setup PHP Environment"
+description: "Sets up PHP, Symfony Flex and project dependencies"
+inputs:
+  php-version:
+    description: "PHP Version"
+    required: true
+  symfony-version:
+    description: "Symfony Version"
+    required: true
+  install-browsers:
+    description: "Whether to install Firefox and drivers"
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        extensions: none, curl, mbstring, xml, simplexml, xmlwriter, dom, tokenizer, json, zip, sockets, iconv
+        coverage: xdebug
+
+    - name: Check Composer package description
+      shell: bash
+      run: composer validate --strict
+
+    - name: Symfony version auto-configuration
+      shell: bash
+      run: |
+        composer global require --no-progress --no-scripts --no-plugins symfony/flex
+        composer global config --no-plugins allow-plugins.symfony/flex true
+        composer config extra.symfony.require ${{ inputs.symfony-version }}
+
+    - name: Generate Composer dependencies lock file
+      shell: bash
+      run: composer update --no-install --prefer-stable
+
+    - name: Install Dependencies
+      uses: ramsey/composer-install@v3

@@ -1,0 +1,27 @@
+name: "Setup Firefox environment"
+description: "Sets up Firefox and required OS dependencies for testing"
+inputs:
+  version:
+    description: "Firefox version to install"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install required Firefox libraries
+      shell: bash
+      run: |
+        if [ "$(lsb_release -rs 2>/dev/null)" = "24.04" ]; then
+          sudo apt-get update && sudo apt-get install libdbus-glib-1-2 libgtk-3-0t64 libx11-xcb1 libasound2t64 -y
+        else
+          sudo apt-get update && sudo apt-get install libdbus-glib-1-2 libgtk-3-0 libx11-xcb1 libasound2 -y
+        fi
+
+    - name: Install Firefox browser
+      uses: browser-actions/setup-firefox@v1
+      with:
+        firefox-version: ${{ inputs.version }}
+
+    - name: Install Firefox drivers
+      shell: bash
+      run: vendor/bin/bdi detect drivers
