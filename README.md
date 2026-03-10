@@ -1,14 +1,14 @@
-ZmkrCloudflareTurnstileBundle
-=============================
+# ZmkrCloudflareTurnstileBundle
 
 [![CI Status](https://github.com/zemasterkrom/zmkr-cloudflare-turnstile-bundle/actions/workflows/ci.yaml/badge.svg)](https://github.com/zemasterkrom/zmkr-cloudflare-turnstile-bundle/actions)
 [![codecov](https://codecov.io/gh/zemasterkrom/zmkr-cloudflare-turnstile-bundle/graph/badge.svg)](https://codecov.io/gh/Zemasterkrom/zmkr-cloudflare-turnstile-bundle/)
 
-Requires **Symfony `>= 5.0`** and **PHP `>= 7.4`**. Tested up to **Symfony 7**.
+Requires **Symfony `>= 5.4`** and **PHP `>= 8.2`**. Tested up to **Symfony 7**.
 
 The purpose of this bundle is to facilitate the configuration and integration of the **Cloudflare Turnstile** captcha system into **Symfony** forms.
 
 Summary of features provided:
+
 - Automatic captcha rendering, language configuration and validation
 - Timeout management
 - Client-side error domain management
@@ -16,8 +16,7 @@ Summary of features provided:
 - Possibility of using custom JavaScript rendering logic
 - Possibility of marking captchas as required
 
-Get started
------------
+## Get started
 
 ### With Symfony Flex
 
@@ -25,7 +24,7 @@ Run the following command with **Composer**:
 
 `composer require zemasterkrom/zmkr-cloudflare-turnstile-bundle`
 
-If you have not explicitly allowed "contrib" recipes in your *composer.json* file, you will be prompted with the following message for `zemasterkrom/zmkr-cloudflare-turnstile-bundle`:
+If you have not explicitly allowed "contrib" recipes in your _composer.json_ file, you will be prompted with the following message for `zemasterkrom/zmkr-cloudflare-turnstile-bundle`:
 
 > Do you want to execute this recipe?
 
@@ -71,8 +70,7 @@ CLOUDFLARE_TURNSTILE_SITEKEY=<sitekey>
 CLOUDFLARE_TURNSTILE_SECRET_KEY=<secret_key>
 ```
 
-Usage
------
+## Usage
 
 To add a **Cloudflare Turnstile** captcha to a form, you need to associate a `CloudflareTurnstileType` field in your form builder:
 
@@ -102,7 +100,7 @@ class ContactType extends AbstractType
 }
 ```
 
-Validation will be performed automatically when you check the form that is associated with a ``CloudflareTurnstileType``:
+Validation will be performed automatically when you check the form that is associated with a `CloudflareTurnstileType`:
 
 ```php
 <?php
@@ -133,10 +131,10 @@ class CloudflareTurnstileTestController extends AbstractController
 }
 ```
 
-Documentation
--------------
+## Documentation
+
 For advanced usage, please see the [documentation](docs/index.md).
 
-License
--------
+## License
+
 This bundle is licensed under the MIT license. The license is accessible [here](LICENSE).

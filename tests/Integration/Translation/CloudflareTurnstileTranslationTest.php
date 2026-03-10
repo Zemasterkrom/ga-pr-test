@@ -10,7 +10,7 @@ use Zemasterkrom\CloudflareTurnstileBundle\Test\BundleTestingKernel;
 use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptcha;
 
 /**
- * Integration test class that checks that Cloudflare Turnstile error message translation is working properly
+ * Integration test class that checks that Cloudflare Turnstile error message translation is working properly.
  */
 class CloudflareTurnstileTranslationTest extends KernelTestCase
 {
@@ -20,7 +20,7 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
 
     public function setUp(): void
     {
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         $this->translator = self::bootKernel()->getContainer()->get('translator');
 
         if (!isset(self::$translationFileContents)) {
@@ -54,17 +54,16 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
         $cloudflareTurnstileCaptchaConstraint = new CloudflareTurnstileCaptcha();
         $filesystem = new Filesystem();
 
-
-        $translationFilePath = "";
-        $completePath = sprintf("%s/../../../src/Resources/translations/validators.%s.php", __DIR__, $ietfBcp47SymfonyLocale);
-        $partialPath = sprintf("%s/../../../src/Resources/translations/validators.%s.php", __DIR__, substr($ietfBcp47SymfonyLocale, 0, 2));
+        $translationFilePath = '';
+        $completePath = sprintf('%s/../../../src/Resources/translations/validators.%s.php', __DIR__, $ietfBcp47SymfonyLocale);
+        $partialPath = sprintf('%s/../../../src/Resources/translations/validators.%s.php', __DIR__, substr($ietfBcp47SymfonyLocale, 0, 2));
 
         $completePathGlob = glob($completePath);
         $partialPathGlob = glob($partialPath);
 
         if ($completePathGlob) {
             $translationFilePath = $completePathGlob[0];
-        } else if ($partialPathGlob) {
+        } elseif ($partialPathGlob) {
             $translationFilePath = $partialPathGlob[0];
         }
 
@@ -85,11 +84,11 @@ class CloudflareTurnstileTranslationTest extends KernelTestCase
     public function yieldIetfBcp47SymfonyLocaleAssociations(): iterable
     {
         $ietfBcp47SymfonyLocaleAssociations = array_map(function (string $ietfBcp47locale) {
-            return preg_replace_callback("/-(.*)/", function (array $matches) {
-                return sprintf("_%s", strtoupper($matches[1]));
+            return preg_replace_callback('/-(.*)/', function (array $matches) {
+                return sprintf('_%s', strtoupper($matches[1]));
             }, $ietfBcp47locale);
         }, array_filter(array_keys(CloudflareTurnstileType::SUPPORTED_LANGUAGES_LOCALES), function (string $locale) {
-            return strlen($locale) === 5;
+            return 5 === strlen($locale);
         }));
 
         foreach ($ietfBcp47SymfonyLocaleAssociations as $ietfBcp47SymfonyLocaleAssociation) {

@@ -2,15 +2,14 @@
 
 namespace Zemasterkrom\CloudflareTurnstileBundle\Test\Unit\Validator;
 
-use DG\BypassFinals;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Zemasterkrom\CloudflareTurnstileBundle\Client\CloudflareTurnstileClientInterface;
 use Zemasterkrom\CloudflareTurnstileBundle\Exception\CloudflareTurnstileApiException;
+use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstileErrorManager;
 use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptcha;
 use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptchaValidator;
-use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstileErrorManager;
 
 /**
  * Clouflare turnstile validator test class.
@@ -38,7 +37,7 @@ class CloudflareTurnstileCaptchaValidatorTest extends ConstraintValidatorTestCas
     }
 
     /**
-     * Creates the validator from the properties of the current test
+     * Creates the validator from the properties of the current test.
      *
      * @return CloudflareTurnstileCaptchaValidator Cloudflare Turnstile Captcha Validator with current test properties
      */

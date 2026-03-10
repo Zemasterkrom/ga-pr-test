@@ -5,8 +5,8 @@ namespace Zemasterkrom\CloudflareTurnstileBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Options;
@@ -15,93 +15,94 @@ use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstileProperties
 use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptcha;
 
 /**
- * Cloudflare Turnstile form integration component
+ * Cloudflare Turnstile form integration component.
  */
 class CloudflareTurnstileType extends AbstractType
 {
     /**
      * @see https://developers.cloudflare.com/turnstile/reference/supported-languages/
      * @since 0.1
+     *
      * @version 1.1
      */
-    const SUPPORTED_LANGUAGES_LOCALES = [
-        'auto'  => true,
-        'ar'    => true,
+    public const SUPPORTED_LANGUAGES_LOCALES = [
+        'auto' => true,
+        'ar' => true,
         'ar-eg' => true,
-        'bg'    => true,
+        'bg' => true,
         'bg-bg' => true,
-        'cs'    => true,
+        'cs' => true,
         'cs-cz' => true,
-        'da'    => true,
+        'da' => true,
         'da-dk' => true,
-        'de'    => true,
+        'de' => true,
         'de-de' => true,
-        'el'    => true,
+        'el' => true,
         'el-gr' => true,
-        'en'    => true,
+        'en' => true,
         'en-us' => true,
-        'es'    => true,
+        'es' => true,
         'es-es' => true,
-        'fa'    => true,
+        'fa' => true,
         'fa-ir' => true,
-        'fi'    => true,
+        'fi' => true,
         'fi-fi' => true,
-        'fr'    => true,
+        'fr' => true,
         'fr-fr' => true,
-        'he'    => true,
+        'he' => true,
         'he-il' => true,
-        'hi'    => true,
+        'hi' => true,
         'hi-in' => true,
-        'hr'    => true,
+        'hr' => true,
         'hr-hr' => true,
-        'hu'    => true,
+        'hu' => true,
         'hu-hu' => true,
-        'id'    => true,
+        'id' => true,
         'id-id' => true,
-        'it'    => true,
+        'it' => true,
         'it-it' => true,
-        'ja'    => true,
+        'ja' => true,
         'ja-jp' => true,
-        'ko'    => true,
+        'ko' => true,
         'ko-kr' => true,
-        'lt'    => true,
+        'lt' => true,
         'lt-lt' => true,
-        'ms'    => true,
+        'ms' => true,
         'ms-my' => true,
-        'nb'    => true,
+        'nb' => true,
         'nb-no' => true,
-        'nl'    => true,
+        'nl' => true,
         'nl-nl' => true,
-        'pl'    => true,
+        'pl' => true,
         'pl-pl' => true,
-        'pt'    => true,
+        'pt' => true,
         'pt-br' => true,
-        'ro'    => true,
+        'ro' => true,
         'ro-ro' => true,
-        'ru'    => true,
+        'ru' => true,
         'ru-ru' => true,
-        'sk'    => true,
+        'sk' => true,
         'sk-sk' => true,
-        'sl'    => true,
+        'sl' => true,
         'sl-si' => true,
-        'sr'    => true,
+        'sr' => true,
         'sr-ba' => true,
-        'sv'    => true,
+        'sv' => true,
         'sv-se' => true,
-        'th'    => true,
+        'th' => true,
         'th-th' => true,
-        'tl'    => true,
+        'tl' => true,
         'tl-ph' => true,
-        'tlh'   => true,
-        'tr'    => true,
+        'tlh' => true,
+        'tr' => true,
         'tr-tr' => true,
-        'uk'    => true,
+        'uk' => true,
         'uk-ua' => true,
-        'vi'    => true,
+        'vi' => true,
         'vi-vn' => true,
-        'zh'    => true,
+        'zh' => true,
         'zh-cn' => true,
-        'zh-tw' => true
+        'zh-tw' => true,
     ];
 
     private CloudflareTurnstilePropertiesManager $propertiesManager;
@@ -114,7 +115,7 @@ class CloudflareTurnstileType extends AbstractType
     }
 
     /**
-     * Automatically configures and normalizes Cloudflare Turnstile captcha options for easy integration
+     * Automatically configures and normalizes Cloudflare Turnstile captcha options for easy integration.
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -151,14 +152,14 @@ class CloudflareTurnstileType extends AbstractType
             if ($normalizedLocale) {
                 $attributes['data-language'] = $normalizedLocale;
             }
-            
+
             if (isset($attributes['class']) && !\is_scalar($attributes['class']) && !(\is_object($attributes['class']) && method_exists($attributes['class'], '__toString'))) {
                 throw new LogicException('Cloudflare Turnstile captcha widget class must be stringable');
             }
 
-            $attributes['class'] = isset($attributes['class']) && (string) $attributes['class'] && !\is_bool($attributes['class']) ? (preg_match("/\bcf-turnstile\b/", $attributes['class']) ? $attributes['class'] : 'cf-turnstile ' . $attributes['class']) : 'cf-turnstile';
+            $attributes['class'] = isset($attributes['class']) && (string) $attributes['class'] && !\is_bool($attributes['class']) ? (preg_match("/\bcf-turnstile\b/", $attributes['class']) ? $attributes['class'] : 'cf-turnstile '.$attributes['class']) : 'cf-turnstile';
             $attributes['data-theme'] ??= 'light';
-           
+
             return $attributes;
         });
 
@@ -208,11 +209,11 @@ class CloudflareTurnstileType extends AbstractType
             'attr' => [
                 'data-sitekey' => $this->propertiesManager->getSitekey(),
                 'data-theme' => 'light',
-                'class' => 'cf-turnstile'
+                'class' => 'cf-turnstile',
             ],
             'constraints' => [
-                new CloudflareTurnstileCaptcha()
-            ]
+                new CloudflareTurnstileCaptcha(),
+            ],
         ];
     }
 }

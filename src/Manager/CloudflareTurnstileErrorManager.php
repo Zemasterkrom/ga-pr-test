@@ -5,14 +5,14 @@ namespace Zemasterkrom\CloudflareTurnstileBundle\Manager;
 use Zemasterkrom\CloudflareTurnstileBundle\Exception\CloudflareTurnstileException;
 
 /**
- * Error manager that handles Cloudflare Turnstile bundle exceptions based on provided settings
+ * Error manager that handles Cloudflare Turnstile bundle exceptions based on provided settings.
  */
 class CloudflareTurnstileErrorManager
 {
     private bool $throwOnCoreFailure;
 
     /**
-     * Constructor of the error manager
+     * Constructor of the error manager.
      *
      * @param bool $throwOnCoreFailure Flag to enable or disable the error manager
      */
@@ -22,7 +22,7 @@ class CloudflareTurnstileErrorManager
     }
 
     /**
-     * Throws a managed bundle exception if allowed
+     * Throws a managed bundle exception if allowed.
      *
      * @param CloudflareTurnstileException $cloudflareTurnstileException Cloudflare Turnstile bundle exception
      */

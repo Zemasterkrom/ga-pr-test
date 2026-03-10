@@ -10,9 +10,16 @@ composer.lock
 /var/
 
 # PHPUnit
-.phpunit.result.cache
 /coverage*/
 /drivers/
 
+# PHP CS Fixer
+php-cs-fixer.diff
+.artifacts/**/php-cs-fixer-report.**
+
 # GitHub
 .github/**.md
+
+# Cache
+.phpunit.result.cache
+.php-cs-fixer.cache

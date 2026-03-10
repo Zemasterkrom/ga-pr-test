@@ -3,8 +3,8 @@
 namespace Zemasterkrom\CloudflareTurnstileBundle\Test\Unit\Manager;
 
 use PHPUnit\Framework\TestCase;
-use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstileErrorManager;
 use Zemasterkrom\CloudflareTurnstileBundle\Exception\CloudflareTurnstileException;
+use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstileErrorManager;
 
 /**
  * Cloudflare Turnstile exception / error manager test class.

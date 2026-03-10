@@ -34,21 +34,21 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
         $this->extension->load([[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
-            ]
+                'secret_key' => '<secret_key>',
+            ],
         ]], $this->containerBuilder);
     }
 
     /**
-     * Checks that excluded parameters defined in the bundle loading class are not loaded in the container
+     * Checks that excluded parameters defined in the bundle loading class are not loaded in the container.
      */
     public function testLoadingContainerParametersExclusion(): void
     {
         $this->extension->load([[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
-            ]
+                'secret_key' => '<secret_key>',
+            ],
         ]], $this->containerBuilder);
 
         $this->assertFalse($this->containerBuilder->hasParameter('zmkr_cloudflare_turnstile.parameters.captcha'));
@@ -61,8 +61,8 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
         $this->extension->load([[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
-            ]
+                'secret_key' => '<secret_key>',
+            ],
         ]], $this->containerBuilder);
 
         $this->assertTrue($this->containerBuilder->getParameter(self::ENABLED_FLAG_REFERENCE));
@@ -78,8 +78,8 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
             'captcha' => [
                 'sitekey' => '<sitekey>',
                 'secret_key' => '<secret_key>',
-                'explicit_js_loader' => 'cloudflareTurnstileLoader'
-            ]
+                'explicit_js_loader' => 'cloudflareTurnstileLoader',
+            ],
         ]], $this->containerBuilder);
 
         $this->assertTrue($this->containerBuilder->getParameter(self::ENABLED_FLAG_REFERENCE));
@@ -95,8 +95,8 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
             'captcha' => [
                 'sitekey' => '<sitekey>',
                 'secret_key' => '<secret_key>',
-                'enabled' => false
-            ]
+                'enabled' => false,
+            ],
         ]], $this->containerBuilder);
 
         $this->assertFalse($this->containerBuilder->getParameter(self::ENABLED_FLAG_REFERENCE));
@@ -112,8 +112,8 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
             'captcha' => [
                 'sitekey' => '<sitekey>',
                 'secret_key' => '<secret_key>',
-                'enabled' => true
-            ]
+                'enabled' => true,
+            ],
         ]], $this->containerBuilder);
 
         $this->assertTrue($this->containerBuilder->getParameter(self::ENABLED_FLAG_REFERENCE));
@@ -128,11 +128,11 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
         $this->extension->load([[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
+                'secret_key' => '<secret_key>',
             ],
             'error_manager' => [
-                'throw_on_core_failure' => true
-            ]
+                'throw_on_core_failure' => true,
+            ],
         ]], $this->containerBuilder);
 
         $this->assertSame('<sitekey>', $this->containerBuilder->getParameter(self::CAPTCHA_SITEKEY_REFERENCE));
@@ -142,7 +142,7 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
     }
 
     /**
-     * Asserts that when no HTTP client option is provided, the loaded definition corresponds to an empty array
+     * Asserts that when no HTTP client option is provided, the loaded definition corresponds to an empty array.
      *
      * @dataProvider configsWithNoHttpClientOption
      */
@@ -150,7 +150,7 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
     {
         $this->extension->load([$providedConfigWithNoHttpClientOption], $this->containerBuilder);
 
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         $this->assertCount(0, $this->containerBuilder->getParameter('zmkr_cloudflare_turnstile.parameters.http_client.options'));
     }
 
@@ -159,13 +159,13 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
         $config = [
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
+                'secret_key' => '<secret_key>',
             ],
             'http_client' => [
                 'options' => [
                     'timeout' => 1,
-                ]
-            ]
+                ],
+            ],
         ];
 
         $this->extension->load([$config], $this->containerBuilder);
@@ -179,14 +179,14 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
         $config = [
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
+                'secret_key' => '<secret_key>',
             ],
             'http_client' => [
                 'options' => [
                     'timeout' => 1,
-                    'max_duration' => 2
-                ]
-            ]
+                    'max_duration' => 2,
+                ],
+            ],
         ];
 
         $this->extension->load([$config], $this->containerBuilder);
@@ -202,31 +202,31 @@ class ZmkrCloudflareTurnstileExtensionTest extends TestCase
             [
                 'captcha' => [
                     'sitekey' => '<sitekey>',
-                    'secret_key' => '<secret_key>'
-                ]
-            ]
-        ];
-
-        yield [
-            [
-                'captcha' => [
-                    'sitekey' => '<sitekey>',
-                    'secret_key' => '<secret_key>'
+                    'secret_key' => '<secret_key>',
                 ],
-                'http_client' => []
-            ]
+            ],
         ];
 
         yield [
             [
                 'captcha' => [
                     'sitekey' => '<sitekey>',
-                    'secret_key' => '<secret_key>'
+                    'secret_key' => '<secret_key>',
+                ],
+                'http_client' => [],
+            ],
+        ];
+
+        yield [
+            [
+                'captcha' => [
+                    'sitekey' => '<sitekey>',
+                    'secret_key' => '<secret_key>',
                 ],
                 'http_client' => [
-                    'options' => []
-                ]
-            ]
+                    'options' => [],
+                ],
+            ],
         ];
     }
 

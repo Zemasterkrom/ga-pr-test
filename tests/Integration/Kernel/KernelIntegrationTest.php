@@ -13,7 +13,7 @@ use Zemasterkrom\CloudflareTurnstileBundle\Twig\UniqueMarkupIncluderExtension;
 use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptchaValidator;
 
 /**
- * Kernel test class asserting that the bundle can start with valid configuration
+ * Kernel test class asserting that the bundle can start with valid configuration.
  */
 class KernelIntegrationTest extends KernelTestCase
 {
@@ -23,9 +23,9 @@ class KernelIntegrationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        /** @disregard P1013 Undefined method */
-        /** @disregard P1014 Undefined property */
-        /** @phpstan-ignore-next-line */
+        /* @disregard P1013 Undefined method */
+        /* @disregard P1014 Undefined property */
+        /* @phpstan-ignore-next-line */
         $this->backwardCompatibleContainer = method_exists($this, 'getContainer') ? static::getContainer() : self::$container;
     }
 

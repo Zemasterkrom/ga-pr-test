@@ -7,7 +7,7 @@ use Zemasterkrom\CloudflareTurnstileBundle\Test\BundleTestingKernel;
 use Zemasterkrom\CloudflareTurnstileBundle\Test\Functional\ZmkrCloudflareTurnstileBundleFunctionalTestCase;
 
 /**
- * Functional test class checking the behavior of the Cloudflare Turnstile JavaScript widget handler (explicit JavaScript handler/loader when loading Cloudflare Turnstile)
+ * Functional test class checking the behavior of the Cloudflare Turnstile JavaScript widget handler (explicit JavaScript handler/loader when loading Cloudflare Turnstile).
  */
 class CloudflareTurnstileTypeIndividualExplicitJsLoaderTest extends ZmkrCloudflareTurnstileBundleFunctionalTestCase
 {
@@ -15,7 +15,7 @@ class CloudflareTurnstileTypeIndividualExplicitJsLoaderTest extends ZmkrCloudfla
     {
         $this->expectException(JavascriptErrorException::class);
 
-        $this->client->executeAsyncScript("return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, null, 0, 1);");
+        $this->client->executeAsyncScript('return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, null, 0, 1);');
     }
 
     public function testCaptchaIndividualExplicitModeWithoutExistingCallbackThrowsException(): void
@@ -30,10 +30,10 @@ class CloudflareTurnstileTypeIndividualExplicitJsLoaderTest extends ZmkrCloudfla
         $this->expectException(JavascriptErrorException::class);
 
         $this->client->executeAsyncScript(<<<EOF
-            window.cloudflareTurnstileLoader = true;
+                        window.cloudflareTurnstileLoader = true;
 
-            return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
-EOF);
+                        return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
+            EOF);
     }
 
     public function testCaptchaIndividualExplicitModeWithValidCallbackButNoTurnstileThrowsException(): void
@@ -41,10 +41,10 @@ EOF);
         $this->expectException(JavascriptErrorException::class);
 
         $this->client->executeAsyncScript(<<<EOF
-            window.cloudflareTurnstileLoader = function() {};
+                        window.cloudflareTurnstileLoader = function() {};
 
-            return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
-EOF);
+                        return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
+            EOF);
     }
 
     public function testCaptchaIndividualExplicitModeWithTurnstileButInvalidCallbackThrowsException(): void
@@ -52,11 +52,11 @@ EOF);
         $this->expectException(JavascriptErrorException::class);
 
         $this->client->executeAsyncScript(<<<EOF
-            window.turnstile = {};
-            window.cloudflareTurnstileLoader = true;
+                        window.turnstile = {};
+                        window.cloudflareTurnstileLoader = true;
 
-            return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
-EOF);
+                        return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1);
+            EOF);
     }
 
     public function testCaptchaIndividualExplicitModeWithTurnstileAndCallback(): void
@@ -64,19 +64,19 @@ EOF);
         $this->expectNotToPerformAssertions();
 
         $this->client->executeAsyncScript(<<<EOF
-            window.turnstile = {};
-            window.cloudflareTurnstileLoader = function() {
-                return true;
-            };
+                        window.turnstile = {};
+                        window.cloudflareTurnstileLoader = function() {
+                            return true;
+                        };
 
-            return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1).then((parameters) => {
-                if (!window[parameters.callbackFunctionName]()) {
-                    throw parameters.callbackFunctionName;
-                }
+                        return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 0, 1).then((parameters) => {
+                            if (!window[parameters.callbackFunctionName]()) {
+                                throw parameters.callbackFunctionName;
+                            }
 
-                arguments[arguments.length - 1]();
-            });
-EOF);
+                            arguments[arguments.length - 1]();
+                        });
+            EOF);
     }
 
     public function testCaptchaIndividualExplicitModeWaiter(): void
@@ -84,23 +84,23 @@ EOF);
         $this->expectNotToPerformAssertions();
 
         $this->client->executeAsyncScript(<<<EOF
-            window.turnstile = {};
-            window.cloudflareTurnstileLoader = null;
+                        window.turnstile = {};
+                        window.cloudflareTurnstileLoader = null;
 
-            setTimeout(() => {
-                window.cloudflareTurnstileLoader = function() {
-                    return true;
-                };
-            }, 2000);
+                        setTimeout(() => {
+                            window.cloudflareTurnstileLoader = function() {
+                                return true;
+                            };
+                        }, 2000);
 
-            return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 500, 10).then((parameters) => {
-                if (parameters.runNumber < 4 || parameters.runNumber > 5) {
-                    throw parameters.runNumber;
-                }
+                        return window.zmkrCloudflareTurnstileBundleCaptcha.onload(null, 'cloudflareTurnstileLoader', 500, 10).then((parameters) => {
+                            if (parameters.runNumber < 4 || parameters.runNumber > 5) {
+                                throw parameters.runNumber;
+                            }
 
-                arguments[arguments.length - 1]();
-            });
-EOF);
+                            arguments[arguments.length - 1]();
+                        });
+            EOF);
     }
 
     protected static function getKernelClass(): string

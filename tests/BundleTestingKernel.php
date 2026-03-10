@@ -17,21 +17,21 @@ use Zemasterkrom\CloudflareTurnstileBundle\Validator\CloudflareTurnstileCaptchaV
 use Zemasterkrom\CloudflareTurnstileBundle\ZmkrCloudflareTurnstileBundle;
 
 /**
- * Bundle kernel that correctly integrates required bundles and marks services as public in order to test their integration
+ * Bundle kernel that correctly integrates required bundles and marks services as public in order to test their integration.
  */
 class BundleTestingKernel extends Kernel
 {
-    const SERVICES = [
+    public const SERVICES = [
         CloudflareTurnstilePropertiesManager::class,
         CloudflareTurnstileErrorManager::class,
         CloudflareTurnstileType::class,
         CloudflareTurnstileCaptchaValidator::class,
         CloudflareTurnstileClient::class,
-        UniqueMarkupIncluderExtension::class
+        UniqueMarkupIncluderExtension::class,
     ];
 
-    const SERVICES_ALIASES = [
-        CloudflareTurnstilePropertiesManager::class
+    public const SERVICES_ALIASES = [
+        CloudflareTurnstilePropertiesManager::class,
     ];
 
     public function registerBundles(): iterable
@@ -39,19 +39,18 @@ class BundleTestingKernel extends Kernel
         return [
             new ZmkrCloudflareTurnstileBundle(),
             new FrameworkBundle(),
-            new TwigBundle()
+            new TwigBundle(),
         ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__ . '/config.php');
+        $loader->load(__DIR__.'/config.php');
     }
 
     protected function build(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new class implements CompilerPassInterface
-        {
+        $container->addCompilerPass(new class implements CompilerPassInterface {
             public function process(ContainerBuilder $container): void
             {
                 foreach ($container->getDefinitions() as $definition) {

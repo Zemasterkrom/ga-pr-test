@@ -21,7 +21,7 @@ class CloudflareTurnstileClientTest extends TestCase
     {
         /** @phpstan-ignore-next-line */
         $client = new CloudflareTurnstileClient(new MockHttpClient(new MockResponse(json_encode([
-            'success' => true
+            'success' => true,
         ]))), '', []);
 
         $this->assertTrue($client->verify('<captcha_response>'));
@@ -62,7 +62,7 @@ class CloudflareTurnstileClientTest extends TestCase
     }
 
     /**
-     * Checks that client options and custom verification options are correctly merged
+     * Checks that client options and custom verification options are correctly merged.
      *
      * @dataProvider clientOptionsWithVerificationOptions
      */
@@ -80,7 +80,7 @@ class CloudflareTurnstileClientTest extends TestCase
     {
         /** @phpstan-ignore-next-line */
         $client = new CloudflareTurnstileClient(new MockHttpClient(new MockResponse(json_encode([
-            'success' => true
+            'success' => true,
         ]))), '', $clientHttpOptions);
 
         $this->assertTrue($client->verify('<captcha_response>', $verificationHttpOptions));
@@ -93,14 +93,14 @@ class CloudflareTurnstileClientTest extends TestCase
     {
         /** @phpstan-ignore-next-line */
         $client = new CloudflareTurnstileClient(new MockHttpClient(new MockResponse(json_encode([
-            'success' => false
+            'success' => false,
         ]))), '', $clientHttpOptions);
 
         $this->assertFalse($client->verify('<captcha_response>', $httpVerificationOptions));
     }
 
     /**
-     * Checks that client options and custom verification options arrays (with spread operator) are correctly merged
+     * Checks that client options and custom verification options arrays (with spread operator) are correctly merged.
      *
      * @dataProvider clientOptionsWithVerificationOptionsCombinations
      */
@@ -156,18 +156,18 @@ class CloudflareTurnstileClientTest extends TestCase
     {
         yield [
             [
-                'success' => false
-            ]
+                'success' => false,
+            ],
         ];
 
         yield [
-            []
+            [],
         ];
 
         yield [
             [
-                'test' => true
-            ]
+                'test' => true,
+            ],
         ];
     }
 
@@ -176,7 +176,7 @@ class CloudflareTurnstileClientTest extends TestCase
         yield [
             [],
             [],
-            []
+            [],
         ];
 
         yield [
@@ -184,27 +184,27 @@ class CloudflareTurnstileClientTest extends TestCase
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
-            ]
+                'max_duration' => 3,
+            ],
         ];
 
         yield [
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [],
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
-            ]
+                'max_duration' => 3,
+            ],
         ];
 
         yield [
@@ -213,60 +213,60 @@ class CloudflareTurnstileClientTest extends TestCase
                 'timeout' => 1,
             ],
             [
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
-            ]
+                'max_duration' => 3,
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
                 'timeout' => 1,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 3
-            ]
+                'max_duration' => 3,
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
                 'timeout' => 1,
-                'max_duration' => 1
+                'max_duration' => 1,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 3
-            ]
+                'max_duration' => 3,
+            ],
         ];
 
         yield [
@@ -276,17 +276,17 @@ class CloudflareTurnstileClientTest extends TestCase
             [
                 'max_duration' => 3,
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
-                'timeout' => 2
+                'timeout' => 2,
             ],
             [
                 'max_duration' => 3,
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
-                'timeout' => 2
-            ]
+                'timeout' => 2,
+            ],
         ];
     }
 
@@ -296,99 +296,99 @@ class CloudflareTurnstileClientTest extends TestCase
             [],
             [],
             [],
-            []
+            [],
         ];
 
         yield [
-            [],
-            [],
-            [
-                'max_duration' => 2
-            ],
-            [
-                'max_duration' => 2,
-            ]
-        ];
-
-        yield [
-            [
-                'max_duration' => 2
-            ],
             [],
             [],
             [
                 'max_duration' => 2,
-            ]
+            ],
+            [
+                'max_duration' => 2,
+            ],
+        ];
+
+        yield [
+            [
+                'max_duration' => 2,
+            ],
+            [],
+            [],
+            [
+                'max_duration' => 2,
+            ],
         ];
 
         yield [
             [],
             [
-                'timeout' => 1
+                'timeout' => 1,
             ],
             [
-                'max_duration' => 2
+                'max_duration' => 2,
             ],
             [
                 'timeout' => 1,
                 'max_duration' => 2,
-            ]
+            ],
         ];
 
         yield [
             [
-                'timeout' => 1
+                'timeout' => 1,
             ],
             [],
             [
-                'max_duration' => 2
+                'max_duration' => 2,
             ],
             [
                 'timeout' => 1,
                 'max_duration' => 2,
-            ]
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => true
-                ]
+                    'test' => true,
+                ],
             ],
             [
-                'timeout' => 1
+                'timeout' => 1,
             ],
             [
-                'max_duration' => 2
+                'max_duration' => 2,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 1,
                 'max_duration' => 2,
-            ]
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => true
-                ]
+                    'test' => true,
+                ],
             ],
             [
-                'timeout' => 1
+                'timeout' => 1,
             ],
             [
-                'max_duration' => 2
+                'max_duration' => 2,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 1,
                 'max_duration' => 2,
-            ]
+            ],
         ];
 
         yield [
@@ -396,18 +396,18 @@ class CloudflareTurnstileClientTest extends TestCase
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 3
+                'max_duration' => 3,
             ],
             [
                 'body' => [],
                 'timeout' => 2,
-                'max_duration' => 1
+                'max_duration' => 1,
             ],
             [
                 'body' => [],
                 'timeout' => 2,
-                'max_duration' => 1
-            ]
+                'max_duration' => 1,
+            ],
         ];
 
         yield [
@@ -419,96 +419,96 @@ class CloudflareTurnstileClientTest extends TestCase
             [
                 'body' => [],
                 'timeout' => 1,
-                'max_duration' => 1
+                'max_duration' => 1,
             ],
             [
                 'body' => [],
                 'max_duration' => 1,
-                'timeout' => 1
-            ]
+                'timeout' => 1,
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => false
-                ]
-            ],
-            [
-                'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
-                'timeout' => 1
             ],
             [
                 'body' => [
-                    'test' => true
-                ],
-                'max_duration' => 1
-            ],
-            [
-                'body' => [
-                    'test' => true
+                    'test' => false,
                 ],
                 'timeout' => 1,
-                'max_duration' => 1
-            ]
+            ],
+            [
+                'body' => [
+                    'test' => true,
+                ],
+                'max_duration' => 1,
+            ],
+            [
+                'body' => [
+                    'test' => true,
+                ],
+                'timeout' => 1,
+                'max_duration' => 1,
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => false
-                ]
+                    'test' => false,
+                ],
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 1,
-                'max_duration' => 1
+                'max_duration' => 1,
             ],
             [
                 'body' => [
-                    'test' => false
-                ]
+                    'test' => false,
+                ],
             ],
             [
                 'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
                 'timeout' => 1,
-                'max_duration' => 1
-            ]
+                'max_duration' => 1,
+            ],
         ];
 
         yield [
             [
                 'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
                 'timeout' => 1,
-                'max_duration' => 1
+                'max_duration' => 1,
             ],
             [
                 'body' => [
-                    'test' => false
+                    'test' => false,
                 ],
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 2
+                'max_duration' => 2,
             ],
             [
                 'body' => [
-                    'test' => true
+                    'test' => true,
                 ],
                 'timeout' => 2,
-                'max_duration' => 2
-            ]
+                'max_duration' => 2,
+            ],
         ];
     }
 
@@ -516,23 +516,23 @@ class CloudflareTurnstileClientTest extends TestCase
     {
         yield [
             [
-                'unknown_option' => null
-            ]
+                'unknown_option' => null,
+            ],
         ];
 
         yield [
             [
                 'timeout' => 1,
-                'unknown_option' => null
-            ]
+                'unknown_option' => null,
+            ],
         ];
 
         yield [
             [
                 'timeout' => 1,
                 'max_duration' => 1,
-                'unknown_option' => null
-            ]
+                'unknown_option' => null,
+            ],
         ];
     }
 }

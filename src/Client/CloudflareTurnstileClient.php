@@ -3,12 +3,12 @@
 namespace Zemasterkrom\CloudflareTurnstileBundle\Client;
 
 use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface as HttpClientExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Zemasterkrom\CloudflareTurnstileBundle\Exception\CloudflareTurnstileApiException;
 
 /**
- * Cloudflare Turnstile client verifier using the siteverify POST API
+ * Cloudflare Turnstile client verifier using the siteverify POST API.
  */
 class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
 {
@@ -19,11 +19,11 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
     private array $options = [];
 
     /**
-     * Constructor for CloudflareTurnstileClient
+     * Constructor for CloudflareTurnstileClient.
      *
-     * @param HttpClientInterface $httpClient The HTTP client for making API requests
-     * @param string $secretKey The registered Cloudflare Turnstile secret key
-     * @param array<string, mixed> $options Additional options for HTTP requests. Allowed options : body, timeout, max_duration.
+     * @param HttpClientInterface  $httpClient The HTTP client for making API requests
+     * @param string               $secretKey  The registered Cloudflare Turnstile secret key
+     * @param array<string, mixed> $options    Additional options for HTTP requests. Allowed options : body, timeout, max_duration.
      */
     public function __construct(HttpClientInterface $httpClient, string $secretKey, array $options)
     {
@@ -37,7 +37,7 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
         $mergedOptions = array_merge($this->options, ...$options);
 
         foreach (array_keys($mergedOptions) as $option) {
-            if ($option !== 'body' && $option !== 'timeout' && $option !== 'max_duration') {
+            if ('body' !== $option && 'timeout' !== $option && 'max_duration' !== $option) {
                 throw new InvalidArgumentException(sprintf('Unsupported Cloudflare Turnstile client option : %s', $option));
             }
         }
@@ -60,12 +60,11 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
                     [
                         'body' => [
                             'response' => $captchaResponse,
-                            'secret' => $this->secretKey
-                        ]
+                            'secret' => $this->secretKey,
+                        ],
                     ]
                 )
             )->toArray();
-
 
             return isset($apiResponse['success']) && $apiResponse['success'];
         } catch (HttpClientExceptionInterface $e) {

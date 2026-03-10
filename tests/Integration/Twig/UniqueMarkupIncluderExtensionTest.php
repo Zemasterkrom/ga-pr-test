@@ -15,7 +15,7 @@ class UniqueMarkupIncluderExtensionTest extends IntegrationTestCase
 
     protected static function getFixturesDirectory(): string
     {
-        return __DIR__ . '/Fixtures';
+        return __DIR__.'/Fixtures';
     }
 
     protected function getExtensions(): array

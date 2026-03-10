@@ -64,7 +64,7 @@ class ConfigurationTest extends TestCase
         $this->expectException(InvalidConfigurationException::class);
 
         $this->processor->processConfiguration($this->configuration, [[
-            'captcha' => []
+            'captcha' => [],
         ]]);
     }
 
@@ -73,7 +73,7 @@ class ConfigurationTest extends TestCase
         $this->expectException(InvalidConfigurationException::class);
 
         $this->processor->processConfiguration($this->configuration, [[
-            'enabled' => null
+            'enabled' => null,
         ]]);
     }
 
@@ -84,8 +84,8 @@ class ConfigurationTest extends TestCase
         $this->processor->processConfiguration($this->configuration, [[
             'captcha' => [
                 'sitekey' => '',
-                'secret_key' => '<secret_key>'
-            ]
+                'secret_key' => '<secret_key>',
+            ],
         ]]);
     }
 
@@ -96,8 +96,8 @@ class ConfigurationTest extends TestCase
         $this->processor->processConfiguration($this->configuration, [[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => ''
-            ]
+                'secret_key' => '',
+            ],
         ]]);
     }
 
@@ -108,11 +108,11 @@ class ConfigurationTest extends TestCase
         $this->processor->processConfiguration($this->configuration, [[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
+                'secret_key' => '<secret_key>',
             ],
             'error_manager' => [
-                'throw_on_core_failure' => '<throw_on_core_failure>'
-            ]
+                'throw_on_core_failure' => '<throw_on_core_failure>',
+            ],
         ]]);
     }
 
@@ -123,11 +123,11 @@ class ConfigurationTest extends TestCase
         $this->processor->processConfiguration($this->configuration, [[
             'captcha' => [
                 'sitekey' => '<sitekey>',
-                'secret_key' => '<secret_key>'
+                'secret_key' => '<secret_key>',
             ],
             'http_client' => [
-                'options' => false
-            ]
+                'options' => false,
+            ],
         ]]);
     }
 
@@ -139,11 +139,11 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
-                    ]
-                ]
+                        'secret_key' => '<secret_key>',
+                    ],
+                ],
             ],
-            $this->getOptions()
+            $this->getOptions(),
         ];
 
         // Basic configuration without error_manager section options
@@ -152,12 +152,12 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
-                    'error_manager' => []
-                ]
+                    'error_manager' => [],
+                ],
             ],
-            $this->getOptions()
+            $this->getOptions(),
         ];
 
         // Configuration with core exception throwing enabled
@@ -166,18 +166,18 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
                     'error_manager' => [
-                        'throw_on_core_failure' => true
-                    ]
-                ]
+                        'throw_on_core_failure' => true,
+                    ],
+                ],
             ],
             $this->getOptions([
                 'error_manager' => [
-                    'throw_on_core_failure' => true
-                ]
-            ])
+                    'throw_on_core_failure' => true,
+                ],
+            ]),
         ];
 
         // Configuration without http_client section options
@@ -186,12 +186,12 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
-                    'http_client' => []
-                ]
+                    'http_client' => [],
+                ],
             ],
-            $this->getOptions()
+            $this->getOptions(),
         ];
 
         // Configuration with no HTTP option
@@ -200,14 +200,14 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
                     'http_client' => [
-                        'options' => []
-                    ]
-                ]
+                        'options' => [],
+                    ],
+                ],
             ],
-            $this->getOptions()
+            $this->getOptions(),
         ];
 
         // Configuration with single HTTP option
@@ -216,22 +216,22 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
                     'http_client' => [
                         'options' => [
-                            'timeout' => 1
-                        ]
-                    ]
-                ]
+                            'timeout' => 1,
+                        ],
+                    ],
+                ],
             ],
             $this->getOptions([
                 'http_client' => [
                     'options' => [
-                        'timeout' => 1
-                    ]
-                ]
-            ])
+                        'timeout' => 1,
+                    ],
+                ],
+            ]),
         ];
 
         // Configuration with multiple HTTP options
@@ -240,24 +240,24 @@ class ConfigurationTest extends TestCase
                 'zmkr_cloudflare_turnstile' => [
                     'captcha' => [
                         'sitekey' => '<sitekey>',
-                        'secret_key' => '<secret_key>'
+                        'secret_key' => '<secret_key>',
                     ],
                     'http_client' => [
                         'options' => [
                             'timeout' => 1,
-                            'max_duration' => 2
-                        ]
-                    ]
-                ]
+                            'max_duration' => 2,
+                        ],
+                    ],
+                ],
             ],
             $this->getOptions([
                 'http_client' => [
                     'options' => [
                         'timeout' => 1,
-                        'max_duration' => 2
-                    ]
-                ]
-            ])
+                        'max_duration' => 2,
+                    ],
+                ],
+            ]),
         ];
 
         // Configuration with explicit JavaScript loader
@@ -267,15 +267,15 @@ class ConfigurationTest extends TestCase
                     'captcha' => [
                         'sitekey' => '<sitekey>',
                         'secret_key' => '<secret_key>',
-                        'explicit_js_loader' => 'cloudflareTurnstileLoader'
-                    ]
-                ]
+                        'explicit_js_loader' => 'cloudflareTurnstileLoader',
+                    ],
+                ],
             ],
             $this->getOptions([
                 'captcha' => [
-                    'explicit_js_loader' => 'cloudflareTurnstileLoader'
-                ]
-            ])
+                    'explicit_js_loader' => 'cloudflareTurnstileLoader',
+                ],
+            ]),
         ];
 
         // Configuration with compatibility mode
@@ -285,15 +285,15 @@ class ConfigurationTest extends TestCase
                     'captcha' => [
                         'sitekey' => '<sitekey>',
                         'secret_key' => '<secret_key>',
-                        'compatibility_mode' => 'recaptcha'
-                    ]
-                ]
+                        'compatibility_mode' => 'recaptcha',
+                    ],
+                ],
             ],
             $this->getOptions([
                 'captcha' => [
-                    'compatibility_mode' => 'recaptcha'
-                ]
-            ])
+                    'compatibility_mode' => 'recaptcha',
+                ],
+            ]),
         ];
 
         // Enabled extension
@@ -303,11 +303,11 @@ class ConfigurationTest extends TestCase
                     'captcha' => [
                         'sitekey' => '<sitekey>',
                         'secret_key' => '<secret_key>',
-                        'enabled' => true
-                    ]
-                ]
+                        'enabled' => true,
+                    ],
+                ],
             ],
-            $this->getOptions()
+            $this->getOptions(),
         ];
 
         // Disabled extension
@@ -317,15 +317,15 @@ class ConfigurationTest extends TestCase
                     'captcha' => [
                         'sitekey' => '<sitekey>',
                         'secret_key' => '<secret_key>',
-                        'enabled' => false
-                    ]
-                ]
+                        'enabled' => false,
+                    ],
+                ],
             ],
             $this->getOptions([
                 'captcha' => [
-                    'enabled' => false
-                ]
-            ])
+                    'enabled' => false,
+                ],
+            ]),
         ];
     }
 
@@ -337,14 +337,14 @@ class ConfigurationTest extends TestCase
                 'secret_key' => '<secret_key>',
                 'enabled' => true,
                 'explicit_js_loader' => null,
-                'compatibility_mode' => null
+                'compatibility_mode' => null,
             ],
             'error_manager' => [
-                'throw_on_core_failure' => false
+                'throw_on_core_failure' => false,
             ],
             'http_client' => [
-                'options' => []
-            ]
+                'options' => [],
+            ],
         ], $modifiedOptions);
     }
 }

@@ -23,7 +23,7 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     private ?RequestStack $requestStack;
     private CloudflareTurnstileType $type;
 
-    const CAPTCHA_SITEKEY = 'sitekey';
+    public const CAPTCHA_SITEKEY = 'sitekey';
 
     public function setUp(): void
     {
@@ -34,7 +34,7 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
 
     private function initializeFormTypeFactory(): void
     {
-        $this->type = new CloudflareTurnstileType($this->propertiesManager, isset($this->requestStack) ? $this->requestStack : null);
+        $this->type = new CloudflareTurnstileType($this->propertiesManager, $this->requestStack ?? null);
         parent::setUp();
     }
 
@@ -42,8 +42,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         return [
             new PreloadedExtension([
-                $this->type
-            ], [])
+                $this->type,
+            ], []),
         ];
     }
 
@@ -162,8 +162,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
 
         $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-response-field-name' => true
-            ]
+                'data-response-field-name' => true,
+            ],
         ]);
     }
 
@@ -174,8 +174,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-language' => $providedLocale
-            ]
+                'data-language' => $providedLocale,
+            ],
         ])->createView();
 
         $this->assertSame($expectedLocale, $formView->vars['attr']['data-language']);
@@ -185,14 +185,13 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-language' => new class
-                {
+                'data-language' => new class {
                     public function __toString()
                     {
                         return 'EN';
                     }
-                }
-            ]
+                },
+            ],
         ])->createView();
 
         $this->assertSame('en', $formView->vars['attr']['data-language']);
@@ -253,7 +252,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
         restore_error_handler();
     }
 
-    public function testCaptchaLanguageAutoConfigurationWithUnsupportedLocaleButDifferentCaptchaLanguage(): void {
+    public function testCaptchaLanguageAutoConfigurationWithUnsupportedLocaleButDifferentCaptchaLanguage(): void
+    {
         $triggeredNotice = false;
 
         set_error_handler(function () use (&$triggeredNotice) {
@@ -272,8 +272,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
 
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-language' => 'en'
-            ]
+                'data-language' => 'en',
+            ],
         ])->createView();
 
         $this->assertFalse($triggeredNotice);
@@ -288,8 +288,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
 
         $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-language' => 'unsupported_locale'
-            ]
+                'data-language' => 'unsupported_locale',
+            ],
         ]);
     }
 
@@ -299,8 +299,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
 
         $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-language' => true
-            ]
+                'data-language' => true,
+            ],
         ]);
     }
 
@@ -308,8 +308,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'data-theme' => 'dark'
-            ]
+                'data-theme' => 'dark',
+            ],
         ])->createView();
 
         $this->assertSame('dark', $formView->vars['attr']['data-theme']);
@@ -324,8 +324,8 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'class' => $providedClass
-            ]
+                'class' => $providedClass,
+            ],
         ])->createView();
 
         $this->assertSame($expectedClass, $formView->vars['attr']['class']);
@@ -340,15 +340,15 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'class' => $providedClass
-            ]
+                'class' => $providedClass,
+            ],
         ])->createView();
 
         $this->assertSame($expectedClass, $formView->vars['attr']['class']);
     }
 
     /**
-     * The class attribute must be prepended with cf-turnstile class if provided data is mixed and does not contain cf-turnstile
+     * The class attribute must be prepended with cf-turnstile class if provided data is mixed and does not contain cf-turnstile.
      *
      * @dataProvider classesWithMixedData
      */
@@ -356,22 +356,22 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
             'attr' => [
-                'class' => $providedClass
-            ]
+                'class' => $providedClass,
+            ],
         ])->createView();
 
         $this->assertSame($expectedClass, $formView->vars['attr']['class']);
     }
 
     /**
-     * If attributes are registered on a CloudflareTurnstileType, the default attributes must be merged with the custom attributes
+     * If attributes are registered on a CloudflareTurnstileType, the default attributes must be merged with the custom attributes.
      *
      * @dataProvider attributesCombinations
      */
     public function testTurnstileAttrsMerging(array $providedAttrs, array $expectedAttrs): void
     {
         $formView = $this->factory->create(CloudflareTurnstileType::class, null, [
-            'attr' => $providedAttrs
+            'attr' => $providedAttrs,
         ])->createView();
 
         $this->assertEqualsCanonicalizing($expectedAttrs, $formView->vars['attr']);
@@ -454,82 +454,82 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
     {
         $this->propertiesManager = new CloudflareTurnstilePropertiesManager(self::CAPTCHA_SITEKEY, true);
         $this->initializeFormTypeFactory();
-        
+
         $formAttrs = $this->factory->create(CloudflareTurnstileType::class)->createView()->vars['attr'];
 
         yield [
             [],
-            $formAttrs
-        ];
-        yield [
-            [
-                'data-test' => 'test'
-            ],
-            array_merge($formAttrs, [
-                'data-test' => 'test'
-            ])
+            $formAttrs,
         ];
         yield [
             [
                 'data-test' => 'test',
-                'data-test2' => 'test2'
             ],
             array_merge($formAttrs, [
                 'data-test' => 'test',
-                'data-test2' => 'test2'
-            ])
+            ]),
+        ];
+        yield [
+            [
+                'data-test' => 'test',
+                'data-test2' => 'test2',
+            ],
+            array_merge($formAttrs, [
+                'data-test' => 'test',
+                'data-test2' => 'test2',
+            ]),
         ];
         yield [
             [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
-                'data-test2' => 'test2'
+                'data-test2' => 'test2',
             ],
             array_merge($formAttrs, [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
-                'data-test2' => 'test2'
-            ])
+                'data-test2' => 'test2',
+            ]),
         ];
         yield [
             [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
                 'data-test2' => [
-                    'test-nested2' => 'test-nested2'
-                ]
+                    'test-nested2' => 'test-nested2',
+                ],
             ],
             array_merge($formAttrs, [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
                 'data-test2' => [
-                    'test-nested2' => 'test-nested2'
-                ]
-            ])
+                    'test-nested2' => 'test-nested2',
+                ],
+            ]),
         ];
         yield [
             [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
                 'data-test2' => [
-                    'test-nested2' => 'test-nested2'
+                    'test-nested2' => 'test-nested2',
                 ],
-                'data-test3' => 'test3'
+                'data-test3' => 'test3',
             ],
             array_merge($formAttrs, [
                 'data-test' => [
-                    'test-nested' => 'test-nested'
+                    'test-nested' => 'test-nested',
                 ],
                 'data-test2' => [
-                    'test-nested2' => 'test-nested2'
+                    'test-nested2' => 'test-nested2',
                 ],
-                'data-test3' => 'test3'
-            ])
+                'data-test3' => 'test3',
+            ]),
         ];
     }
 
@@ -539,11 +539,10 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
         yield [false, 'cf-turnstile'];
         yield [0, 'cf-turnstile'];
         yield [1, 'cf-turnstile 1'];
-        yield [new class
-        {
+        yield [new class {
             public function __toString()
             {
-                return "";
+                return '';
             }
         }, 'cf-turnstile'];
     }
@@ -556,14 +555,14 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
         yield [
             $this->factory->createBuilder()
                 ->add('turnstile_type', CloudflareTurnstileType::class)
-                ->getForm()
+                ->getForm(),
         ];
 
         yield [
             $this->factory->createBuilder()
                 ->add('turnstile_type', CloudflareTurnstileType::class)
                 ->add('turnstile_type', CloudflareTurnstileType::class)
-                ->getForm()
+                ->getForm(),
         ];
     }
 
@@ -576,7 +575,7 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
             $this->factory->createBuilder()
                 ->add('turnstile_type', CloudflareTurnstileType::class)
                 ->add('turnstile_type_2', CloudflareTurnstileType::class)
-                ->getForm()
+                ->getForm(),
         ];
 
         yield [
@@ -584,7 +583,7 @@ class CloudflareTurnstileTypeTest extends TypeTestCase
                 ->add('turnstile_type', CloudflareTurnstileType::class)
                 ->add('turnstile_type_2', CloudflareTurnstileType::class)
                 ->add('turnstile_type_3', CloudflareTurnstileType::class)
-                ->getForm()
+                ->getForm(),
         ];
     }
 }

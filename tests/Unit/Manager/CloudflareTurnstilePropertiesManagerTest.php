@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Zemasterkrom\CloudflareTurnstileBundle\Manager\CloudflareTurnstilePropertiesManager;
 
 /**
- * Cloudflare Turnstile properties manager test class
+ * Cloudflare Turnstile properties manager test class.
  */
 class CloudflareTurnstilePropertiesManagerTest extends TestCase
 {

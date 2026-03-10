@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.2",
         "symfony/asset": "^5.4|^6.0|^7.0",
         "symfony/config": "^5.4|^6.0|^7.0",
         "symfony/form": "^5.4|^6.0|^7.0",
@@ -51,7 +51,9 @@
     },
     "scripts": {
         "phpunit": "./vendor/bin/simple-phpunit",
-        "phpstan": "./vendor/bin/phpstan analyse"
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "php-cs-fixer": "./vendor/bin/php-cs-fixer",
+        "php-cs-fixer:docker": "docker build -f docker/php-cs-fixer/Dockerfile -t zemasterkrom/zmkr-cloudflare-turnstile-bundle-php-cs-fixer:3-php8.2-symfony5.4 . && docker run --rm -v .:/app --name zmkr-cloudflare-turnstile-bundle-php-cs-fixer zemasterkrom/zmkr-cloudflare-turnstile-bundle-php-cs-fixer:3-php8.2-symfony5.4"
     },
     "minimum-stability": "dev"
 }

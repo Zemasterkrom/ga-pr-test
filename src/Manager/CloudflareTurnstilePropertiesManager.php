@@ -3,7 +3,7 @@
 namespace Zemasterkrom\CloudflareTurnstileBundle\Manager;
 
 /**
- * Cloudflare Turnstile property container that provides manual configurators for per-request configuration
+ * Cloudflare Turnstile property container that provides manual configurators for per-request configuration.
  */
 class CloudflareTurnstilePropertiesManager
 {
@@ -15,11 +15,11 @@ class CloudflareTurnstilePropertiesManager
     private bool $isCompatibilityModeEnabled;
 
     /**
-     * Constructor of the Cloudflare Turnstile proprieties manager
+     * Constructor of the Cloudflare Turnstile proprieties manager.
      *
-     * @param string $sitekey The Cloudflare Turnstile sitekey for captcha integration
-     * @param bool $enabled Flag indicating whether the captcha is enabled
-     * @param ?string $explicitJsLoader If explicit loading is used, the referenced function will be called to load the captcha instead of using the default loading process
+     * @param string  $sitekey           The Cloudflare Turnstile sitekey for captcha integration
+     * @param bool    $enabled           Flag indicating whether the captcha is enabled
+     * @param ?string $explicitJsLoader  If explicit loading is used, the referenced function will be called to load the captcha instead of using the default loading process
      * @param ?string $compatibilityMode Compatibility flag with other captchas (@see https://developers.cloudflare.com/turnstile/migration/)
      */
     public function __construct(string $sitekey, bool $enabled, ?string $explicitJsLoader = null, ?string $compatibilityMode = null)

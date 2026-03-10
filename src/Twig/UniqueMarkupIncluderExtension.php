@@ -8,7 +8,7 @@ use Twig\Markup;
 use Twig\TwigFunction;
 
 /**
- * Twig extension preventing from duplicating included markup data between calls to the same template / associated markup key
+ * Twig extension preventing from duplicating included markup data between calls to the same template / associated markup key.
  */
 class UniqueMarkupIncluderExtension extends AbstractExtension
 {
@@ -31,9 +31,9 @@ class UniqueMarkupIncluderExtension extends AbstractExtension
     }
 
     /**
-     * Strictly uniquely include provided markup in the template
+     * Strictly uniquely include provided markup in the template.
      *
-     * @param string $key Markup data key identifier
+     * @param string $key    Markup data key identifier
      * @param string $markup Markup data to include
      *
      * @return Markup Provided markup data if key not already associated in the included markups, empty markup otherwise
@@ -56,11 +56,9 @@ class UniqueMarkupIncluderExtension extends AbstractExtension
     }
 
     /**
-     * Checks whether a markup identified by a key has already been included in a template
+     * Checks whether a markup identified by a key has already been included in a template.
      *
      * @param string $key Markup data key identifier
-     *
-     * @return bool
      */
     public function isMarkupAlreadyIncluded(string $key): bool
     {

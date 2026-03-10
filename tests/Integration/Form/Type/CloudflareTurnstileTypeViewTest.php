@@ -23,9 +23,9 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
     {
         self::bootKernel();
 
-        /** @disregard P1013 Undefined method */
-        /** @disregard P1014 Undefined property */
-        /** @phpstan-ignore-next-line */
+        /* @disregard P1013 Undefined method */
+        /* @disregard P1014 Undefined property */
+        /* @phpstan-ignore-next-line */
         $this->twig = method_exists($this, 'getContainer') ? static::getContainer()->get(Environment::class) : self::$container->get(Environment::class);
         $this->factory = Forms::createFormFactoryBuilder()->addType(new CloudflareTurnstileType(new CloudflareTurnstilePropertiesManager('', true)))->getFormFactory();
     }
@@ -48,7 +48,7 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
     public function testCaptchaLoadingReferenceWithExplicitMode(): void
     {
         $options = [
-            'explicit_js_loader' => 'cloudflareTurnstileLoader'
+            'explicit_js_loader' => 'cloudflareTurnstileLoader',
         ];
 
         $this->assertStringContainsString('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=cloudflareTurnstileLoader', $this->renderWidget($options));
@@ -57,7 +57,7 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
     public function testCaptchaLoadingReferenceWithReCaptchaMode(): void
     {
         $options = [
-            'compatibility_mode' => 'recaptcha'
+            'compatibility_mode' => 'recaptcha',
         ];
 
         $this->assertStringContainsString('https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha', $this->renderWidget($options));
@@ -67,7 +67,7 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
     {
         $options = [
             'explicit_js_loader' => 'cloudflareTurnstileLoader',
-            'compatibility_mode' => 'recaptcha'
+            'compatibility_mode' => 'recaptcha',
         ];
 
         $this->assertStringContainsString('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=cloudflareTurnstileLoader&amp;compat=recaptcha', $this->renderWidget($options));
@@ -76,7 +76,7 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
     public function testCaptchaIsNotRenderedIfDisabled(): void
     {
         $options = [
-            'enabled' => false
+            'enabled' => false,
         ];
 
         $this->assertEmpty($this->renderWidget($options));
@@ -91,7 +91,7 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
                 'data-sitekey' => 'sitekey',
                 'data-response-field-name' => 'cf-turnstile-response',
                 'data-language' => 'auto',
-            ]
+            ],
         ];
 
         $widgetRendering = $this->renderWidget($options);
@@ -103,18 +103,19 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
         $this->assertStringContainsString('data-language="auto"', $widgetRendering);
     }
 
-    public function testCaptchaRenderingWithFactoryAndCustomAttributes(): void {
-        $formVars = $this->factory->create(CloudflareTurnstileType::class, null,  [
+    public function testCaptchaRenderingWithFactoryAndCustomAttributes(): void
+    {
+        $formVars = $this->factory->create(CloudflareTurnstileType::class, null, [
             'individual_explicit_js_loader' => 'cloudflareTurnstileLoader',
             'attr' => [
                 'class' => 'test-class test-class-two',
-                'data-test' => 'test'
-            ]
+                'data-test' => 'test',
+            ],
         ])->createView()->vars;
 
         $widgetRendering = $this->renderWidget($formVars);
 
-        $this->assertMatchesRegularExpression('#<div id="' . $formVars['id'] . '_cloudflare_turnstile_widget_container" .+></div>#', $widgetRendering);
+        $this->assertMatchesRegularExpression('#<div id="'.$formVars['id'].'_cloudflare_turnstile_widget_container" .+></div>#', $widgetRendering);
         $this->assertStringContainsString('class="cf-turnstile test-class test-class-two"', $widgetRendering);
         $this->assertStringContainsString('data-sitekey=""', $widgetRendering);
         $this->assertStringContainsString('data-response-field-name="zmkr_cloudflare_turnstile"', $widgetRendering);
@@ -133,8 +134,8 @@ class CloudflareTurnstileTypeViewTest extends KernelTestCase
                 'data-test-attr' => 'test',
                 'data-test-attr-two' => '',
                 'data-test-attr-three' => true,
-                'data-test-attr-four' => false
-            ]
+                'data-test-attr-four' => false,
+            ],
         ];
 
         $widgetRendering = $this->renderWidget($options);
