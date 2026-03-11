@@ -65,44 +65,29 @@ jobs:
   code-coverage:
     runs-on: ubuntu-latest
     name: Code coverage
+    if: vars.CODECOV_ENABLED == 'true' || github.event_name == 'pull_request'
 
     steps:
-      - name: Check Codecov token availability
-        shell: bash
-        run: |
-          if [ -n "$HAS_CODECOV_TOKEN" ]; then
-            echo "HAS_CODECOV_TOKEN=true" >> $GITHUB_ENV
-          else
-            echo "HAS_CODECOV_TOKEN=false" >> $GITHUB_ENV
-          fi
-        env:
-          HAS_CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
       - name: Checkout repository
-        if: env.HAS_CODECOV_TOKEN == 'true'
         uses: actions/checkout@v6
 
       - name: Setup PHP environment and dependencies
-        if: env.HAS_CODECOV_TOKEN == 'true'
         uses: ./.github/actions/setup-php-env
         with:
           php-version: 8.2
           symfony-version: ^5.4
 
       - name: Setup Firefox environment
-        if: env.HAS_CODECOV_TOKEN == 'true'
         uses: ./.github/actions/setup-firefox-env
         with:
           version: "133.0"
 
       - name: Run PHPUnit tests with coverage report
-        if: env.HAS_CODECOV_TOKEN == 'true'
         run: composer phpunit -- --coverage-clover ./coverage.xml
 
       - name: Upload coverage report to Codecov
-        if: env.HAS_CODECOV_TOKEN == 'true'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
-          fail_ci_if_error: true
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' }}
