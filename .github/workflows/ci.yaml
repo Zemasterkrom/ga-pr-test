@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP environment and dependencies
         uses: ./.github/actions/setup-php-env
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP environment and dependencies
         uses: ./.github/actions/setup-php-env
@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP environment and dependencies
         uses: ./.github/actions/setup-php-env
@@ -85,8 +85,9 @@ jobs:
         run: composer phpunit -- --coverage-clover ./coverage.xml
 
       - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         if: ${{ !env.ACT }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
+          fail_ci_if_error: true
