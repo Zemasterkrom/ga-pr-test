@@ -15,6 +15,6 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Upload coverage report to Codecov
-        run: echo $CODECOV_TOKEN
+        run: echo "Token code - $CODECOV_TOKEN"
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
