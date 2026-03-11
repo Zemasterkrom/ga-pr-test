@@ -21,7 +21,7 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
     /**
      * Constructor for CloudflareTurnstileClient.
      *
-     * @param HttpClientInterface $httpClient The HTTP client for making API requests.
+     * @param HttpClientInterface  $httpClient the HTTP client for making API requests
      * @param string               $secretKey  The registered Cloudflare Turnstile secret key
      * @param array<string, mixed> $options    Additional options for HTTP requests. Allowed options : body, timeout, max_duration.
      */
