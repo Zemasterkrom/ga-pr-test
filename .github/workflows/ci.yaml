@@ -65,6 +65,7 @@ jobs:
   code-coverage:
     runs-on: ubuntu-latest
     name: Code coverage
+    if: vars.CODECOV_ENABLED == 'true'
 
     steps:
       - name: Checkout repository
@@ -86,10 +87,7 @@ jobs:
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v5
-        if: env.HAS_CODECOV_TOKEN == 'true'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
           fail_ci_if_error: true
-        env:
-          HAS_CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN != '' }}
