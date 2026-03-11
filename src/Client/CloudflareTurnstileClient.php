@@ -27,6 +27,7 @@ class CloudflareTurnstileClient implements CloudflareTurnstileClientInterface
      */
     public function __construct(HttpClientInterface $httpClient, string $secretKey, array $options)
     {
+        $test = 'ok';
         $this->httpClient = $httpClient;
         $this->secretKey = $secretKey;
         $this->options = $this->handleOptions($options);
