@@ -5,62 +5,62 @@ on:
   pull_request:
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       php: [8.2, 8.4]
-  #       symfony: [^5.4, ^6.0, ^7.0]
-  #     fail-fast: false
-  #   name: PHPUnit | PHPStan (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [8.2, 8.4]
+        symfony: [^5.4, ^6.0, ^7.0]
+      fail-fast: false
+    name: PHPUnit | PHPStan (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v6
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-  #     - name: Setup PHP environment and dependencies
-  #       uses: ./.github/actions/setup-php-env
-  #       with:
-  #         php-version: ${{ matrix.php }}
-  #         symfony-version: ${{ matrix.symfony }}
+      - name: Setup PHP environment and dependencies
+        uses: ./.github/actions/setup-php-env
+        with:
+          php-version: ${{ matrix.php }}
+          symfony-version: ${{ matrix.symfony }}
 
-  #     - name: Setup Firefox environment
-  #       uses: ./.github/actions/setup-firefox-env
-  #       with:
-  #         version: "133.0"
+      - name: Setup Firefox environment
+        uses: ./.github/actions/setup-firefox-env
+        with:
+          version: "133.0"
 
-  #     - name: Run PHPUnit tests
-  #       run: composer phpunit
+      - name: Run PHPUnit tests
+        run: composer phpunit
 
-  #     - name: Run PHPStan tests
-  #       run: composer phpstan
+      - name: Run PHPStan tests
+        run: composer phpstan
 
-  # code-styling:
-  #   runs-on: ubuntu-latest
-  #   name: Code styling
+  code-styling:
+    runs-on: ubuntu-latest
+    name: Code styling
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v6
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-  #     - name: Setup PHP environment and dependencies
-  #       uses: ./.github/actions/setup-php-env
-  #       with:
-  #         php-version: 8.2
-  #         symfony-version: ^5.4
+      - name: Setup PHP environment and dependencies
+        uses: ./.github/actions/setup-php-env
+        with:
+          php-version: 8.2
+          symfony-version: ^5.4
 
-  #     - name: Check code styling with PHP CS Fixer (no Docker)
-  #       run: composer php-cs-fixer -- check --diff --no-ansi > php-cs-fixer.diff
+      - name: Check code styling with PHP CS Fixer (no Docker)
+        run: composer php-cs-fixer -- check --diff --no-ansi > php-cs-fixer.diff
 
-  #     - name: Upload PHP CS Fixer failure report
-  #       if: failure()
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: php-cs-fixer-report
-  #         path: php-cs-fixer.diff
+      - name: Upload PHP CS Fixer failure report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-cs-fixer-report
+          path: php-cs-fixer.diff
 
-  #     - name: Check code styling with PHP CS Fixer (Docker)
-  #       run: composer php-cs-fixer:docker -- check
+      - name: Check code styling with PHP CS Fixer (Docker)
+        run: composer php-cs-fixer:docker -- check
 
   code-coverage:
     runs-on: ubuntu-latest
